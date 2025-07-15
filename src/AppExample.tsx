@@ -1,64 +1,50 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
+import React, { useEffect } from "react";
+import { useUserStore } from "./store/userStore";
+import { ThemeProvider, useTheme } from "./context/ThemeContext";
+import { UserList } from "./components/UserList";
+import { SearchBar } from "./components/SearchBar";
+import { SortButton } from "./components/SortButton";
+import { ThemeToggle } from "./components/ThemeToggle";
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  address: {
-    city: string;
-  };
+function AppContent() {
+  const { theme } = useTheme();
+  const { fetchUsers, clearError } = useUserStore();
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
+  return (
+    <div className={`min-h-screen transition-colors ${theme === 'light' ? 'bg-gray-50 text-gray-900' : 'bg-gray-900 text-white'
+      }`}>
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className={`text-3xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'
+            }`}>
+            User Directory
+          </h1>
+          <ThemeToggle />
+        </div>
+
+        <div className="mb-6">
+          <SearchBar />
+        </div>
+
+        <div className="mb-6">
+          <SortButton />
+        </div>
+
+        <UserList />
+      </div>
+    </div>
+  );
 }
 
 function App() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch");
-        return res.json();
-      })
-      .then((data) => {
-        setUsers(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
-
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
   return (
-    <div className="App">
-      <h1>User Directory</h1>
-      <input
-        type="text"
-        placeholder="Search by name..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{ marginBottom: "20px", padding: "8px", width: "300px" }}
-      />
-      <div className="user-list">
-        {filteredUsers.map((user) => (
-          <div key={user.id} className="user-card">
-            <h3>{user.name}</h3>
-            <p>Email: {user.email}</p>
-            <p>City: {user.address.city}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 
