@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUserStore } from '../store/userStore';
+import { useUserStore } from '../store/userStoreExample';
 
 export const SortButton: React.FC = () => {
   const { sortOrder, sortUsers } = useUserStore();

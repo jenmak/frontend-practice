@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useUserContext } from "./context/UserContext";
 
 // https://jsonplaceholder.typicode.com/users
 
@@ -15,10 +16,11 @@ type User = {
 
 function App() {
 
-  const [users, setUsers] = useState<User[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string>('')
-  const [searchTerm, setSearchTerm] = useState<string>('')
+  // const [users, setUsers] = useState<User[]>([])
+  // const [loading, setLoading] = useState<boolean>(true)
+  // const [error, setError] = useState<string>('')
+  // const [searchTerm, setSearchTerm] = useState<string>('')
+  const { users, setUsers, loading, setLoading, error, setError, searchTerm, setSearchTerm } = useUserContext()
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users').then((res) => {

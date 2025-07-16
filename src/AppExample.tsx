@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useUserStore } from "./store/userStore";
+import { useUserStore } from "./store/userStoreExample";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { UserList } from "./components/UserList";
 import { SearchBar } from "./components/SearchBar";

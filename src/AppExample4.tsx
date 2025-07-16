@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useUserStore } from "./store/userStoreExample";
 
 type User = {
   address: any;
@@ -13,10 +14,7 @@ type User = {
 
 function App() {
 
-  const [users, setUsers] = useState<User[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string>('')
-  const [searchTerm, setSearchTerm] = useState<string>('')
+  const { users, setUsers, loading, setLoading, error, setError, searchTerm, setSearchTerm } = useUserStore()
 
   const handleSearchTermChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setSearchTerm(event.target.value)

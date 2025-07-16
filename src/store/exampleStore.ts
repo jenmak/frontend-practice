@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { useUserStore } from './userStore';
+import { useUserStore } from './userStoreExample';
 
 // Example of another store for different features
 interface ExampleState {

@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { useUserStore } from '../store/userStore';
+import { useUserStore } from '../store/userStoreExample';
 
 export const SearchBar: React.FC = () => {
   const { searchTerm, setSearchTerm } = useUserStore();
