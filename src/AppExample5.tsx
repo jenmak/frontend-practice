@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import {
+  InfiniteLoader,
+  List,
+  Autosizer,
+  IndexRange
+} from 'react-virtualized'
+import 'react-virtualized/styles.css'
 
 type User = {
   id: number;
@@ -53,6 +60,7 @@ function App() {
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red'}}>{error}</p>}
 
+      {/* List of users */}
       <ul style={{ listStyle: 'none', padding: 0 }}>
         {users.map(user => (
           <li key={user.id} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
@@ -62,13 +70,12 @@ function App() {
         ))}
       </ul>
 
+      {/* Pagination */}
       <div style={{ marginTop: '1rem' }}>
         <button disabled={page === 1} onClick={() => setPage(prev => prev - 1)}>Previous</button>
         <span style={{ margin: '0 1rem' }}>Page {page} of {totalPages}</span>
         <button disabled={page === totalPages} onClick={() => setPage(prev => prev + 1)}>Next</button>
       </div>
-
-      {/* pagination component here */}
     </div>
   )
 }
